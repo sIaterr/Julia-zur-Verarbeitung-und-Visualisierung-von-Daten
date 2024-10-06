@@ -19,8 +19,7 @@ function mittelpunkteBerechnen(Seiten)
         Zμ = zSumme/length(Seite)
         Pμ = (Xμ, Yμ, Zμ)
 
-        push!(Mittelpunkte, Pμ)
-        
+        push!(Mittelpunkte, Pμ)       
     end
 
     return Mittelpunkte
@@ -58,7 +57,7 @@ eckpunkteNeuesTetreaeder = mittelpunkteBerechnen(seitenGrundTetraeder)
 neuesTetraeder = tetraederZeichnen(eckpunkteNeuesTetreaeder)
 
 # Teilplot für die Tetraeder-Dualität
-tetraederPlot = plot3d(grundTetraeder)
+tetraederPlot = plot3d(grundTetraeder, axis = :off, legend = false, grid = false)
 plot3d!(neuesTetraeder)
 
 function würfelZeichnen(Eckpunkte)
@@ -113,9 +112,26 @@ grundWürfel = würfelZeichnen(eckpunkteGrundWürfel)
 eckpunkteOktaeder = mittelpunkteBerechnen(seitenGrundWürfel)
 Oktaeder = oktaederZeichnen(eckpunkteOktaeder)
 
+# Seiten des Oktaeders definieren
+Σ = eckpunkteOktaeder       # kürzerer Name für den Array für Kompaktheit
+seitenOktaeder = [
+    (Σ[1], Σ[2], Σ[3]),
+    (Σ[1], Σ[2], Σ[4]),
+    (Σ[1], Σ[4], Σ[5]),
+    (Σ[1], Σ[3], Σ[5]),
+    (Σ[6], Σ[2], Σ[3]),
+    (Σ[6], Σ[2], Σ[4]),
+    (Σ[6], Σ[4], Σ[5]),
+    (Σ[6], Σ[3], Σ[5])
+]
+
+eckpunkteInnererWürfel = mittelpunkteBerechnen(seitenOktaeder)
+innererWürfel = würfelZeichnen(eckpunkteInnererWürfel)
+
 # Teilplot für die Würfel-Otaeder-Dualität
-würfelOktaederPlot = plot3d(grundWürfel)
-plot3d!(Oktaeder, xlims=(0, 1), ylims=(0, 1), zlims=(0, 1))
+würfelOktaederPlot = plot3d(grundWürfel, axis = :off, legend = false, grid = false)
+plot3d!(Oktaeder)
+plot3d!(innererWürfel)
 
 # Plots zusammen darstellen
-plot(tetraederPlot, würfelOktaederPlot, layout=(1, 2))
+plot(tetraederPlot, würfelOktaederPlot, layout = (1, 2))
