@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<!-- saved from url=(0101)https://www.juliabloggers.com/csv-reader-benchmarks-julia-reads-csvs-10-20x-faster-than-python-and-r/ -->
+<html lang="en-US"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width">
+<title>CSV Reader Benchmarks: Julia Reads CSVs 10-20x Faster than Python and R | juliabloggers.com</title>
+<link rel="profile" href="https://gmpg.org/xfn/11">
+<link rel="pingback" href="https://www.juliabloggers.com/xmlrpc.php">
+<!--[if lt IE 9]>
+<script src="https://www.juliabloggers.com/wp-content/themes/twentytwelve/js/html5.js?ver=3.7.0" type="text/javascript"></script>
+<![endif]-->
+<meta name="robots" content="max-image-preview:large">
+<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com/">
+<link rel="dns-prefetch" href="https://juliohm.github.io/">
+<link rel="dns-prefetch" href="https://randyzwitch.com/">
+<link rel="dns-prefetch" href="https://pagead2.googlesyndication.com/">
+<link rel="dns-prefetch" href="https://stats.wp.com/">
+<link rel="dns-prefetch" href="https://i0.wp.com/">
+<link rel="dns-prefetch" href="https://c0.wp.com/">
+<link rel="alternate" type="application/rss+xml" title="juliabloggers.com » Feed" href="https://www.juliabloggers.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="juliabloggers.com » Comments Feed" href="https://www.juliabloggers.com/comments/feed/">
+<script src="./Julia CVS Speed (Artikel)_files/sdk.js.Download" async="" crossorigin="anonymous"></script><script src="./Julia CVS Speed (Artikel)_files/sdk(1).js.Download"></script><script src="./Julia CVS Speed (Artikel)_files/f.txt"></script><script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/www.juliabloggers.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=025b8f80e0ecfbae529b91431e4a7988"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!n(e,"\ud83d\udc26\u200d\u2b1b","\ud83d\udc26\u200b\u2b1b")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+<link rel="stylesheet" id="jetpack_related-posts-css" href="./Julia CVS Speed (Artikel)_files/related-posts.css" type="text/css" media="all">
+<style id="wp-emoji-styles-inline-css" type="text/css">
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+</style>
+<link rel="stylesheet" id="wp-block-library-css" href="./Julia CVS Speed (Artikel)_files/style.min.css" type="text/css" media="all">
+<style id="wp-block-library-theme-inline-css" type="text/css">
+.wp-block-audio :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-audio :where(figcaption){color:#ffffffa6}.wp-block-audio{margin:0 0 1em}.wp-block-code{border:1px solid #ccc;border-radius:4px;font-family:Menlo,Consolas,monaco,monospace;padding:.8em 1em}.wp-block-embed :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-embed :where(figcaption){color:#ffffffa6}.wp-block-embed{margin:0 0 1em}.blocks-gallery-caption{color:#555;font-size:13px;text-align:center}.is-dark-theme .blocks-gallery-caption{color:#ffffffa6}:root :where(.wp-block-image figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme :root :where(.wp-block-image figcaption){color:#ffffffa6}.wp-block-image{margin:0 0 1em}.wp-block-pullquote{border-bottom:4px solid;border-top:4px solid;color:currentColor;margin-bottom:1.75em}.wp-block-pullquote cite,.wp-block-pullquote footer,.wp-block-pullquote__citation{color:currentColor;font-size:.8125em;font-style:normal;text-transform:uppercase}.wp-block-quote{border-left:.25em solid;margin:0 0 1.75em;padding-left:1em}.wp-block-quote cite,.wp-block-quote footer{color:currentColor;font-size:.8125em;font-style:normal;position:relative}.wp-block-quote.has-text-align-right{border-left:none;border-right:.25em solid;padding-left:0;padding-right:1em}.wp-block-quote.has-text-align-center{border:none;padding-left:0}.wp-block-quote.is-large,.wp-block-quote.is-style-large,.wp-block-quote.is-style-plain{border:none}.wp-block-search .wp-block-search__label{font-weight:700}.wp-block-search__button{border:1px solid #ccc;padding:.375em .625em}:where(.wp-block-group.has-background){padding:1.25em 2.375em}.wp-block-separator.has-css-opacity{opacity:.4}.wp-block-separator{border:none;border-bottom:2px solid;margin-left:auto;margin-right:auto}.wp-block-separator.has-alpha-channel-opacity{opacity:1}.wp-block-separator:not(.is-style-wide):not(.is-style-dots){width:100px}.wp-block-separator.has-background:not(.is-style-dots){border-bottom:none;height:1px}.wp-block-separator.has-background:not(.is-style-wide):not(.is-style-dots){height:2px}.wp-block-table{margin:0 0 1em}.wp-block-table td,.wp-block-table th{word-break:normal}.wp-block-table :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-table :where(figcaption){color:#ffffffa6}.wp-block-video :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-video :where(figcaption){color:#ffffffa6}.wp-block-video{margin:0 0 1em}:root :where(.wp-block-template-part.has-background){margin-bottom:0;margin-top:0;padding:1.25em 2.375em}
+</style>
+<link rel="stylesheet" id="mediaelement-css" href="./Julia CVS Speed (Artikel)_files/mediaelementplayer-legacy.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="wp-mediaelement-css" href="./Julia CVS Speed (Artikel)_files/wp-mediaelement.min.css" type="text/css" media="all">
+<style id="jetpack-sharing-buttons-style-inline-css" type="text/css">
+.jetpack-sharing-buttons__services-list{display:flex;flex-direction:row;flex-wrap:wrap;gap:0;list-style-type:none;margin:5px;padding:0}.jetpack-sharing-buttons__services-list.has-small-icon-size{font-size:12px}.jetpack-sharing-buttons__services-list.has-normal-icon-size{font-size:16px}.jetpack-sharing-buttons__services-list.has-large-icon-size{font-size:24px}.jetpack-sharing-buttons__services-list.has-huge-icon-size{font-size:36px}@media print{.jetpack-sharing-buttons__services-list{display:none!important}}.editor-styles-wrapper .wp-block-jetpack-sharing-buttons{gap:0;padding-inline-start:0}ul.jetpack-sharing-buttons__services-list.has-background{padding:1.25em 2.375em}
+</style>
+<style id="classic-theme-styles-inline-css" type="text/css">
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+</style>
+<style id="global-styles-inline-css" type="text/css">
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #fff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--color--blue: #21759b;--wp--preset--color--dark-gray: #444;--wp--preset--color--medium-gray: #9f9f9f;--wp--preset--color--light-gray: #e6e6e6;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+:root :where(.wp-block-pullquote){font-size: 1.5em;line-height: 1.6;}
+</style>
+<link rel="stylesheet" id="twentytwelve-fonts-css" href="./Julia CVS Speed (Artikel)_files/font-open-sans.css" type="text/css" media="all">
+<link rel="stylesheet" id="twentytwelve-style-css" href="./Julia CVS Speed (Artikel)_files/style.css" type="text/css" media="all">
+<link rel="stylesheet" id="twentytwelve-block-style-css" href="./Julia CVS Speed (Artikel)_files/blocks.css" type="text/css" media="all">
+<!--[if lt IE 9]>
+<link rel='stylesheet' id='twentytwelve-ie-css' href='https://www.juliabloggers.com/wp-content/themes/twentytwelve/css/ie.css?ver=20150214' type='text/css' media='all' />
+<![endif]-->
+<style id="jetpack_facebook_likebox-inline-css" type="text/css">
+.widget_facebook_likebox {
+	overflow: hidden;
+}
+
+</style>
+<link rel="stylesheet" id="jetpack-top-posts-widget-css" href="./Julia CVS Speed (Artikel)_files/style(1).css" type="text/css" media="all">
+<link rel="stylesheet" id="codebox-css" href="./Julia CVS Speed (Artikel)_files/codebox.css" type="text/css" media="screen">
+<script type="text/javascript" id="jetpack_related-posts-js-extra">
+/* <![CDATA[ */
+var related_posts_js_options = {"post_heading":"h4"};
+/* ]]> */
+</script><style type="text/css" id="operaUserStyle"></style>
+<script type="text/javascript" src="./Julia CVS Speed (Artikel)_files/related-posts.min.js.Download" id="jetpack_related-posts-js"></script>
+<script type="text/javascript" src="./Julia CVS Speed (Artikel)_files/MathJax.js.Download" id="scripts-and-styles-1-js"></script>
+<script type="text/javascript" src="./Julia CVS Speed (Artikel)_files/datamaps.world.min.js.Download" id="scripts-and-styles-2-js"></script>
+<script type="text/javascript" src="./Julia CVS Speed (Artikel)_files/echarts.js.Download" id="scripts-and-styles-3-js"></script>
+<script type="text/javascript" src="./Julia CVS Speed (Artikel)_files/f(1).txt" id="scripts-and-styles-4-js" data-checked-head="true"></script><meta http-equiv="origin-trial" content="AlK2UR5SkAlj8jjdEc9p3F3xuFYlF6LYjAML3EOqw1g26eCwWPjdmecULvBH5MVPoqKYrOfPhYVL71xAXI1IBQoAAAB8eyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3NTgwNjcxOTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><meta http-equiv="origin-trial" content="Amm8/NmvvQfhwCib6I7ZsmUxiSCfOxWxHayJwyU1r3gRIItzr7bNQid6O8ZYaE1GSQTa69WwhPC9flq/oYkRBwsAAACCeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3NTgwNjcxOTksImlzU3ViZG9tYWluIjp0cnVlfQ=="><meta http-equiv="origin-trial" content="A9wSqI5i0iwGdf6L1CERNdmsTPgVu44ewj8QxTBYgsv1LCPUVF7YmWOvTappqB1139jAymxUW/RO8zmMqo4zlAAAAACNeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiRmxlZGdlQmlkZGluZ0FuZEF1Y3Rpb25TZXJ2ZXIiLCJleHBpcnkiOjE3MzY4MTI4MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><meta http-equiv="origin-trial" content="A+d7vJfYtay4OUbdtRPZA3y7bKQLsxaMEPmxgfhBGqKXNrdkCQeJlUwqa6EBbSfjwFtJWTrWIioXeMW+y8bWAgQAAACTeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiRmxlZGdlQmlkZGluZ0FuZEF1Y3Rpb25TZXJ2ZXIiLCJleHBpcnkiOjE3MzY4MTI4MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9">
+<script type="text/javascript" src="./Julia CVS Speed (Artikel)_files/jquery.min.js.Download" id="jquery-core-js"></script>
+<script type="text/javascript" src="./Julia CVS Speed (Artikel)_files/jquery-migrate.min.js.Download" id="jquery-migrate-js"></script>
+<script type="text/javascript" src="./Julia CVS Speed (Artikel)_files/navigation.js.Download" id="twentytwelve-navigation-js" defer="defer" data-wp-strategy="defer"></script>
+<script type="text/javascript" src="./Julia CVS Speed (Artikel)_files/codebox.js.Download" id="codebox-js"></script>
+<link rel="https://api.w.org/" href="https://www.juliabloggers.com/wp-json/"><link rel="alternate" title="JSON" type="application/json" href="https://www.juliabloggers.com/wp-json/wp/v2/posts/8656"><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.juliabloggers.com/xmlrpc.php?rsd">
+<link rel="canonical" href="https://www.juliabloggers.com/csv-reader-benchmarks-julia-reads-csvs-10-20x-faster-than-python-and-r/">
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="https://www.juliabloggers.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.juliabloggers.com%2Fcsv-reader-benchmarks-julia-reads-csvs-10-20x-faster-than-python-and-r%2F">
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="https://www.juliabloggers.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.juliabloggers.com%2Fcsv-reader-benchmarks-julia-reads-csvs-10-20x-faster-than-python-and-r%2F&amp;format=xml">
+	<style>img#wpstats{display:none}</style>
+		<style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><script src="./Julia CVS Speed (Artikel)_files/wp-emoji-release.min.js.Download" defer=""></script><style type="text/css"></style><style type="text/css" data-fbcssmodules="css:fb.css.base css:fb.css.dialog css:fb.css.iframewidget css:fb.css.customer_chat_plugin_iframe">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_reposition{overflow:hidden;position:relative}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:'lucida grande', tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}@keyframes fb_transform{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}.fb_animate{animation:fb_transform .3s forwards}
+.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_reposition{overflow:hidden;position:relative}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:'lucida grande', tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}@keyframes fb_transform{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}.fb_animate{animation:fb_transform .3s forwards}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_dialog_advanced{border-radius:8px;padding:10px}.fb_dialog_content{background:#fff;color:#373737}.fb_dialog_close_icon{background:url(https://connect.facebook.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{left:5px;right:auto;top:5px}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(https://connect.facebook.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent}.fb_dialog_close_icon:active{background:url(https://connect.facebook.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #365899;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(https://connect.facebook.net/rsrc.php/v3/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{height:100%;left:0;margin:0;overflow:visible;position:absolute;top:-10000px;transform:none;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(https://connect.facebook.net/rsrc.php/v3/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{background:none;height:auto;min-height:initial;min-width:initial;width:auto}.fb_dialog.fb_dialog_mobile.loading.centered #fb_dialog_loader_spinner{width:100%}.fb_dialog.fb_dialog_mobile.loading.centered .fb_dialog_content{background:none}.loading.centered #fb_dialog_loader_close{clear:both;color:#fff;display:block;font-size:18px;padding-top:20px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .4);bottom:0;left:0;min-height:100%;position:absolute;right:0;top:0;width:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_mobile .fb_dialog_iframe{position:sticky;top:0}.fb_dialog_content .dialog_header{background:linear-gradient(from(#738aba), to(#2c4987));border-bottom:1px solid;border-color:#043b87;box-shadow:white 0 1px 1px -1px inset;color:#fff;font:bold 14px Helvetica, sans-serif;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:linear-gradient(from(#4267B2), to(#2a4887));background-clip:padding-box;border:1px solid #29487d;border-radius:3px;display:inline-block;line-height:18px;margin-top:3px;max-width:85px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{background:none;border:none;color:#fff;font:bold 12px Helvetica, sans-serif;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(https://connect.facebook.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #4a4a4a;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f5f6f7;border:1px solid #4a4a4a;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}#fb_dialog_loader_spinner{animation:rotateSpinner 1.2s linear infinite;background-color:transparent;background-image:url(https://connect.facebook.net/rsrc.php/v3/yD/r/t-wz8gw1xG1.png);background-position:50% 50%;background-repeat:no-repeat;height:24px;width:24px}@keyframes rotateSpinner{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}
+.fb_mpn_mobile_landing_page_slide_out{animation-duration:200ms;animation-name:fb_mpn_landing_page_slide_out;transition-timing-function:ease-in}.fb_mpn_mobile_landing_page_slide_out_from_left{animation-duration:200ms;animation-name:fb_mpn_landing_page_slide_out_from_left;transition-timing-function:ease-in}.fb_mpn_mobile_landing_page_slide_up{animation-duration:500ms;animation-name:fb_mpn_landing_page_slide_up;transition-timing-function:ease-in}.fb_mpn_mobile_bounce_in{animation-duration:300ms;animation-name:fb_mpn_bounce_in;transition-timing-function:ease-in}.fb_mpn_mobile_bounce_out{animation-duration:300ms;animation-name:fb_mpn_bounce_out;transition-timing-function:ease-in}.fb_mpn_mobile_bounce_out_v2{animation-duration:300ms;animation-name:fb_mpn_fade_out;transition-timing-function:ease-in}.fb_customer_chat_bounce_in_v2{animation-duration:300ms;animation-name:fb_bounce_in_v2;transition-timing-function:ease-in}.fb_customer_chat_bounce_in_from_left{animation-duration:300ms;animation-name:fb_bounce_in_from_left;transition-timing-function:ease-in}.fb_customer_chat_bounce_out_v2{animation-duration:300ms;animation-name:fb_bounce_out_v2;transition-timing-function:ease-in}.fb_customer_chat_bounce_out_from_left{animation-duration:300ms;animation-name:fb_bounce_out_from_left;transition-timing-function:ease-in}.fb_invisible_flow{display:inherit;height:0;overflow-x:hidden;width:0}@keyframes fb_mpn_landing_page_slide_out{0%{margin:0 12px;width:100% - 24px}60%{border-radius:18px}100%{border-radius:50%;margin:0 24px;width:60px}}@keyframes fb_mpn_landing_page_slide_out_from_left{0%{left:12px;width:100% - 24px}60%{border-radius:18px}100%{border-radius:50%;left:12px;width:60px}}@keyframes fb_mpn_landing_page_slide_up{0%{bottom:0;opacity:0}100%{bottom:24px;opacity:1}}@keyframes fb_mpn_bounce_in{0%{opacity:.5;top:100%}100%{opacity:1;top:0}}@keyframes fb_mpn_fade_out{0%{bottom:30px;opacity:1}100%{bottom:0;opacity:0}}@keyframes fb_mpn_bounce_out{0%{opacity:1;top:0}100%{opacity:.5;top:100%}}@keyframes fb_bounce_in_v2{0%{opacity:0;transform:scale(0, 0);transform-origin:bottom right}50%{transform:scale(1.03, 1.03);transform-origin:bottom right}100%{opacity:1;transform:scale(1, 1);transform-origin:bottom right}}@keyframes fb_bounce_in_from_left{0%{opacity:0;transform:scale(0, 0);transform-origin:bottom left}50%{transform:scale(1.03, 1.03);transform-origin:bottom left}100%{opacity:1;transform:scale(1, 1);transform-origin:bottom left}}@keyframes fb_bounce_out_v2{0%{opacity:1;transform:scale(1, 1);transform-origin:bottom right}100%{opacity:0;transform:scale(0, 0);transform-origin:bottom right}}@keyframes fb_bounce_out_from_left{0%{opacity:1;transform:scale(1, 1);transform-origin:bottom left}100%{opacity:0;transform:scale(0, 0);transform-origin:bottom left}}@keyframes slideInFromBottom{0%{opacity:.1;transform:translateY(100%)}100%{opacity:1;transform:translateY(0)}}@keyframes slideInFromBottomDelay{0%{opacity:0;transform:translateY(100%)}97%{opacity:0;transform:translateY(100%)}100%{opacity:1;transform:translateY(0)}}</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+
+<body data-rsssl="1" class="post-template-default single single-post postid-8656 single-format-standard wp-embed-responsive custom-font-enabled"><div id="MathJax_Message" style="display: none;"></div>
+<ins class="adsbygoogle adsbygoogle-noablate" data-adsbygoogle-status="done" style="display: none !important;" data-ad-status="unfilled"><div id="aswift_0_host" style="border: none; height: 0px; width: 0px; margin: 0px; padding: 0px; position: relative; visibility: visible; background-color: transparent; display: inline-block;"><iframe id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;border:0;width:undefinedpx;height:undefinedpx;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allow="attribution-reporting" src="./Julia CVS Speed (Artikel)_files/ads.html" data-google-container-id="a!1" tabindex="0" title="Advertisement" aria-label="Advertisement" data-load-complete="true"></iframe></div></ins><div id="page" class="hfeed site">
+	<header id="masthead" class="site-header">
+		<hgroup>
+			<h1 class="site-title"><a href="https://www.juliabloggers.com/" rel="home">juliabloggers.com</a></h1>
+			<h2 class="site-description">A Julia Language Blog Aggregator</h2>
+		</hgroup>
+
+		<nav id="site-navigation" class="main-navigation">
+			<button class="menu-toggle">Menu</button>
+			<a class="assistive-text" href="https://www.juliabloggers.com/csv-reader-benchmarks-julia-reads-csvs-10-20x-faster-than-python-and-r/#content">Skip to content</a>
+			<div class="nav-menu"><ul>
+<li><a href="https://www.juliabloggers.com/">Home</a></li><li class="page_item page-item-9"><a href="https://www.juliabloggers.com/julia-bloggers-submit-feed/">Submit Your RSS/Atom Feed</a></li>
+</ul></div>
+		</nav><!-- #site-navigation -->
+
+			</header><!-- #masthead -->
+
+	<div id="main" class="wrapper">
+
+	<div id="primary" class="site-content">
+		<div id="content" role="main">
+
+			
+				
+	<article id="post-8656" class="post-8656 post type-post status-publish format-standard hentry category-julia">
+				<header class="entry-header">
+			
+						<h1 class="entry-title">CSV Reader Benchmarks: Julia Reads CSVs 10-20x Faster than Python and R</h1>
+								</header><!-- .entry-header -->
+
+				<div class="entry-content">
+			<p>The very first task in any data analysis workflow is simply reading the<br>
+data, and this absolutely must be done quickly and efficiently so the<br>
+more interesting work can begin. Across many industries and domains, the<br>
+CSV file format is king for storing and sharing tabular data. Loading<br>
+CSVs fast and robustly is crucial, and it must scale well across a wide<br>
+variety of file sizes, data types, and shapes. This post compares the<br>
+performance for reading 8 different real-world datasets across three<br>
+different CSV parsers: R’s fread, Pandas’ read_csv, and Julia’s CSV.jl.<br>
+Each of these was chosen as the “best in class” CSV parser in each R,<br>
+Python and Julia, respectively.</p>
+<p>All three tools have robust support for loading a wide variety of data<br>
+types with potentially missing values, but only<br>
+<a href="https://www.rdocumentation.org/packages/data.table/versions/1.12.8/topics/fread"><em>fread</em></a><br>
+(R) and <a href="https://github.com/JuliaData/CSV.jl"><em>CSV.jl</em></a> (Julia) support<br>
+multithreading—<a href="https://pandas.pydata.org/"><em>Pandas</em></a> only supports<br>
+single threaded CSV loading. Julia’s CSV.jl is further unique in that it<br>
+is the only tool that is fully implemented in its higher-level language<br>
+rather than being implemented in C and wrapped from R / Python. (Pandas<br>
+does have a slightly more capable Python-native parser, it is<br>
+significantly slower and nearly all uses of read_csv default to the C<br>
+engine.) As such, the CSV.jl benchmarks here not only represent the<br>
+speed of loading data in Julia, but are also indicative of the sorts of<br>
+performance that’s possible in the subsequent Julia code used in the<br>
+analysis.</p>
+<p>The following benchmarks show that Julia’s CSV.jl is 1.5 to 5 times<br>
+faster than Pandas even on a single core; with multithreading enabled,<br>
+it is as fast or faster than R’s read_csv. The tools used for<br>
+benchmarking were<br>
+<a href="https://github.com/JuliaCI/BenchmarkTools.jl"><em>BenchmarkTools.jl</em></a> for<br>
+Julia,<br>
+<a href="https://www.rdocumentation.org/packages/microbenchmark/versions/1.4-7/topics/microbenchmark"><em>microbenchmark</em></a><br>
+for R, and <a href="https://docs.python.org/2/library/timeit.html"><em>timeit</em></a> for<br>
+Python.</p>
+<h2 id="homogenous-data">Homogenous data</h2>
+<p>Let’s start with some homogeneous datasets i.e. datasets which have the<br>
+same kind of data in all columns. The datasets in this section, apart<br>
+from stock price dataset, are derived from <a href="https://www.queryverse.org/benchmarks/"><em>this benchmark<br>
+site</em></a>. The performance metric<br>
+is the time taken to load a dataset as the number of threads is<br>
+increased from 1 to 20. Since Pandas does not support multi-threading,<br>
+single threaded speed is reported across the board for all core counts.</p>
+<p><strong>Performance on Homogenous Datasets</strong>:</p>
+<p><strong>Uniform Float dataset</strong>: The first dataset contains float values<br>
+arranged in 1 Million rows and 20 columns. Pandas takes 232 milliseconds<br>
+to load this file. Single threaded data.table is 1.6 times faster than<br>
+CSV.jl. With Multithreading, CSV.jl is at its best, more than double the<br>
+speed of data.table. CSV.jl is 1.5 times faster than Pandas without<br>
+multithreading, and about 11 times faster with.</p>
+<p style="text-align: center; ">
+	<img data-recalc-dims="1" decoding="async" src="./Julia CVS Speed (Artikel)_files/fastcsv1.png" style="width: 100%;">
+</p>
+<p><strong>Uniform String dataset(I)</strong>: This dataset contains string values in<br>
+all columns and has 1 Million rows and 20 columns. Pandas takes 546<br>
+milliseconds to load the file. With R, adding threads doesn’t seem to<br>
+lead to any performance gain. Single threaded CSV.jl is 2.5 times faster<br>
+than data.table. At 10 threads, it is about 14 times faster than<br>
+data.table.</p>
+<p style="text-align: center; ">
+	<img data-recalc-dims="1" decoding="async" src="./Julia CVS Speed (Artikel)_files/fastcsv2.png" style="width: 100%;">
+</p>
+<p><strong>Uniform String dataset(II)</strong>: The dimensions of this dataset are the<br>
+same as that of the one above. However, every column has missing values<br>
+as well. Pandas takes 300 milliseconds. Without threading, CSV.jl is 1.2<br>
+times faster than R, and with, it is about 5 times faster.</p>
+<p style="text-align: center; ">
+	<img data-recalc-dims="1" decoding="async" src="./Julia CVS Speed (Artikel)_files/fastcsv3.png" style="width: 100%;">
+</p>
+<p><strong>Apple stock prices</strong>:</p>
+<p>This dataset contains 50 million rows and 5 columns, and is 2.5GB. The<br>
+rows are open, high, low, and close prices for AAPL stock. The four<br>
+columns with prices are float values, and there is a date column.</p>
+<p>The single threaded CSV.jl is about 1.5 times faster than R’s fread from<br>
+data.table. With multithreading CSV.jl is about 22 times faster! Pandas’<br>
+read_csv takes 34s to read, this is slower than both R and Julia.</p>
+<p style="text-align: center; ">
+	<img data-recalc-dims="1" decoding="async" src="./Julia CVS Speed (Artikel)_files/fastcsv4.png" style="width: 100%;">
+</p>
+<h2 id="performance-on-heterogeneous-datasets">Performance on Heterogeneous Datasets</h2>
+<p><strong>Mixed dataset:</strong> This dataset has 10k rows and 200 columns. The<br>
+columns contain, String, Float, DateTime, and missing values. Pandas<br>
+takes about 400 milliseconds to load this dataset. Without threading,<br>
+CSV.jl is 2 times faster than R, and is about 10 times faster with 10<br>
+threads.</p>
+<p style="text-align: center; ">
+	<img data-recalc-dims="1" decoding="async" src="./Julia CVS Speed (Artikel)_files/fastcsv5.png" style="width: 100%;">
+</p>
+<p><strong>Mortgage risk dataset</strong></p>
+<p>Now, let’s look at a wider dataset. This <a href="https://www.kaggle.com/xiaodaizj/mortgageriskfeaturetools"><em>mortgage risk<br>
+dataset</em></a><br>
+from Kaggle is a mixed type dataset, with 356k rows and 2190 columns.<br>
+The columns are heterogeneous and have values of types String, Int,<br>
+Float, Missing. Pandas takes 119s to read in this dataset. Single<br>
+threaded fread is about twice faster than CSV.jl. However, with more<br>
+threads Julia is either as fast or slightly faster than R.</p>
+<p style="text-align: center; ">
+	<img data-recalc-dims="1" decoding="async" src="./Julia CVS Speed (Artikel)_files/fastcsv6.png" style="width: 100%;">
+</p>
+<p><strong>Wide dataset</strong>: This is a considerably wider dataset with 1000 rows<br>
+and 20,000 columns. The dataset contains string and Int values. Pandas<br>
+takes 7.3 seconds to read the dataset. In this case, single threaded<br>
+data.table is about 5 times faster than CSV.jl. With more threads,<br>
+CSV.jl is competitive with data.table. Increasing the number of threads<br>
+doesn’t seem to result in any performance gain in case of data.table.</p>
+<p style="text-align: center; ">
+	<img data-recalc-dims="1" decoding="async" src="./Julia CVS Speed (Artikel)_files/fastcsv7.png" style="width: 100%;">
+</p>
+<p><strong>Fannie Mae Acquisition dataset</strong>: This dataset can be downloaded from<br>
+<a href="https://www.fanniemae.com/portal/funding-the-market/data/loan-performance-data.html"><em>Fannie Mae site<br>
+here</em></a>.<br>
+The dataset has 4 Million rows and 25 columns and values of types Int,<br>
+String, Float, Missing.</p>
+<p>Single threaded data.table is 1.25 times faster than CSV.jl. But, the<br>
+performance of CSV.jl keeps increasing with more threads. CSV.jl gets<br>
+about 4 times faster with multi-threading.</p>
+<p style="text-align: center; ">
+	<img data-recalc-dims="1" decoding="async" src="./Julia CVS Speed (Artikel)_files/fastcsv8.png" style="width: 100%;">
+</p>
+<p><strong>Summary Charts:</strong></p>
+<p style="text-align: center; ">
+	<img data-recalc-dims="1" decoding="async" src="./Julia CVS Speed (Artikel)_files/fastcsv9.png" style="width: 100%;">
+</p>
+<p>Across all eight datasets, Julia’s CSV.jl is always faster than Pandas,<br>
+and with multi-threading it is competitive with R’s data.table.</p>
+<p><strong>System Info:</strong> The specs of the system on which the benchmarking was<br>
+performed are as below</p>
+<div class="language-plaintext highlighter-rouge">
+<div class="highlight">
+<pre class="highlight"><code>$ lsb_release -a
+No LSB modules are available.
+Distributor ID:	Ubuntu
+Description:	Ubuntu 18.04.4 LTS
+Release:	18.04
+Codename:	bionic
+</code></pre>
+</div>
+</div>
+<div class="language-plaintext highlighter-rouge">
+<div class="highlight">
+<pre class="highlight"><code>$ uname -a
+Linux antarctic 5.6.0-custom+ #1 SMP Mon Apr 6 00:47:33 EDT 2020 x86_64 x86_64 x86_64 GNU/Linux
+</code></pre>
+</div>
+</div>
+<div class="language-plaintext highlighter-rouge">
+<div class="highlight">
+<pre class="highlight"><code>$ lscpu
+Architecture:        x86_64
+CPU op-mode(s):      32-bit, 64-bit
+Byte Order:          Little Endian
+CPU(s):              40
+On-line CPU(s) list: 0-39
+Thread(s) per core:  2
+Core(s) per socket:  10
+Socket(s):           2
+NUMA node(s):        2
+Vendor ID:           GenuineIntel
+CPU family:          6
+Model:               85
+Model name:          Intel(R) Xeon(R) Silver 4114 CPU @ 2.20GHz
+Stepping:            4
+CPU MHz:             800.225
+CPU max MHz:         3000.0000
+CPU min MHz:         800.0000
+BogoMIPS:            4400.00
+Virtualization:      VT-x
+L1d cache:           32K
+L1i cache:           32K
+L2 cache:            1024K
+L3 cache:            14080K
+NUMA node0 CPU(s):   0-9,20-29
+NUMA node1 CPU(s):   10-19,30-39
+</code></pre>
+</div>
+</div>
+<div class="language-plaintext highlighter-rouge">
+<div class="highlight">
+<pre class="highlight"><code>$ free -h
+        total   used    free   shared  buff/cache   available
+Mem:      62G   3.3G    6.3G     352K        52G         58G
+Swap:     59G   3.2G     56G
+</code></pre>
+</div>
+</div>
+
+<div id="jp-relatedposts" class="jp-relatedposts" style="display: block;">
+	<h3 class="jp-relatedposts-headline"><em>Related</em></h3>
+<div class="jp-relatedposts-items jp-relatedposts-items-visual jp-relatedposts-grid "><div class="jp-relatedposts-post jp-relatedposts-post0 jp-relatedposts-post-nothumbs" data-post-id="10425" data-post-format="false"><a class="jp-relatedposts-post-a jp-relatedposts-post-aoverlay" href="https://www.juliabloggers.com/csv-reader-benchmarks-julia-reads-csvs-10-20x-faster-than-python-and-r-2/?relatedposts_hit=1&amp;relatedposts_origin=8656&amp;relatedposts_position=0" title="CSV Reader Benchmarks: Julia Reads CSVs 10-20x Faster than Python and R" data-origin="8656" data-position="0"></a><h4 class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://www.juliabloggers.com/csv-reader-benchmarks-julia-reads-csvs-10-20x-faster-than-python-and-r-2/?relatedposts_hit=1&amp;relatedposts_origin=8656&amp;relatedposts_position=0" title="CSV Reader Benchmarks: Julia Reads CSVs 10-20x Faster than Python and R" data-origin="8656" data-position="0">CSV Reader Benchmarks: Julia Reads CSVs 10-20x Faster than Python and R</a></h4><p class="jp-relatedposts-post-excerpt" style="max-height: 7.14286em;">The very first task in any data analysis workflow is simply reading the data, and this absolutely must be done quickly and efficiently so the more interesting...</p><time class="jp-relatedposts-post-date" datetime="June 21, 2020" style="display: block;">June 21, 2020</time><p class="jp-relatedposts-post-context">In "Julia"</p></div><div class="jp-relatedposts-post jp-relatedposts-post1 jp-relatedposts-post-thumbs" data-post-id="11439" data-post-format="false"><a class="jp-relatedposts-post-a" href="https://www.juliabloggers.com/big-csvs/?relatedposts_hit=1&amp;relatedposts_origin=8656&amp;relatedposts_position=1" title="Big CSVs" data-origin="8656" data-position="1"><img class="jp-relatedposts-post-img" loading="lazy" src="./Julia CVS Speed (Artikel)_files/temp.png" width="350" height="200" srcset="https://i0.wp.com/www.juliafordatascience.com/content/images/2021/06/temp.png?resize=350%2C200&amp;ssl=1 1x, https://i0.wp.com/www.juliafordatascience.com/content/images/2021/06/temp.png?resize=525%2C300&amp;ssl=1 1.5x" alt="Big CSVs"></a><h4 class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://www.juliabloggers.com/big-csvs/?relatedposts_hit=1&amp;relatedposts_origin=8656&amp;relatedposts_position=1" title="Big CSVs" data-origin="8656" data-position="1">Big CSVs</a></h4><p class="jp-relatedposts-post-excerpt">Big data is an overloaded term. &nbsp;Here at Julia For Data Science, we'll loosely define it as:Big data is any dataset (or collection of datasets) that requires you to change how you analyze it because of its size.For example, I am writing this post on</p><time class="jp-relatedposts-post-date" datetime="June 3, 2021" style="display: block;">June 3, 2021</time><p class="jp-relatedposts-post-context">In "Julia"</p></div><div class="jp-relatedposts-post jp-relatedposts-post2 jp-relatedposts-post-nothumbs" data-post-id="10979" data-post-format="false"><a class="jp-relatedposts-post-a jp-relatedposts-post-aoverlay" href="https://www.juliabloggers.com/reading-data-from-the-web-with-csv-jl-dataframes-jl-and-chain-jl/?relatedposts_hit=1&amp;relatedposts_origin=8656&amp;relatedposts_position=2" title="Reading data from the web with CSV.jl, DataFrames.jl and Chain.jl" data-origin="8656" data-position="2"></a><h4 class="jp-relatedposts-post-title"><a class="jp-relatedposts-post-a" href="https://www.juliabloggers.com/reading-data-from-the-web-with-csv-jl-dataframes-jl-and-chain-jl/?relatedposts_hit=1&amp;relatedposts_origin=8656&amp;relatedposts_position=2" title="Reading data from the web with CSV.jl, DataFrames.jl and Chain.jl" data-origin="8656" data-position="2">Reading data from the web with CSV.jl, DataFrames.jl and Chain.jl</a></h4><p class="jp-relatedposts-post-excerpt" style="max-height: 7.14286em;">Reading data from the web with CSV.jl, DataFrames.jl and Chain.jl</p><time class="jp-relatedposts-post-date" datetime="May 19, 2021" style="display: block;">May 19, 2021</time><p class="jp-relatedposts-post-context">In "Julia"</p></div></div></div>					</div><!-- .entry-content -->
+		
+		<footer class="entry-meta">
+			This entry was posted in <a href="https://www.juliabloggers.com/category/julia/" rel="category tag">Julia</a> on <a href="https://www.juliabloggers.com/csv-reader-benchmarks-julia-reads-csvs-10-20x-faster-than-python-and-r/" title="7:00 pm" rel="bookmark"><time class="entry-date" datetime="2020-06-21T19:00:00-05:00">June 21, 2020</time></a><span class="by-author"> by <span class="author vcard"><a class="url fn n" href="https://www.juliabloggers.com/author/julia-computing-inc/" title="View all posts by Julia Computing, Inc." rel="author">Julia Computing, Inc.</a></span></span>.								</footer><!-- .entry-meta -->
+	</article><!-- #post -->
+
+				<nav class="nav-single">
+					<h3 class="assistive-text">Post navigation</h3>
+					<span class="nav-previous"><a href="https://www.juliabloggers.com/tutorial-on-cubichermitespline-jl-2/" rel="prev"><span class="meta-nav">←</span> Tutorial on CubicHermiteSpline.jl</a></span>
+					<span class="nav-next"><a href="https://www.juliabloggers.com/writing-an-ar1-process-simulator-as-a-module-in-julia/" rel="next">Writing an AR(1) process simulator as a module in Julia <span class="meta-nav">→</span></a></span>
+				</nav><!-- .nav-single -->
+
+				
+<div id="comments" class="comments-area">
+
+	
+	
+	
+</div><!-- #comments .comments-area -->
+
+			
+		</div><!-- #content -->
+	</div><!-- #primary -->
+
+
+			<div id="secondary" class="widget-area" role="complementary">
+			<aside id="search-6" class="widget widget_search"><form role="search" method="get" id="searchform" class="searchform" action="https://www.juliabloggers.com/">
+				<div>
+					<label class="screen-reader-text" for="s">Search for:</label>
+					<input type="text" value="" name="s" id="s">
+					<input type="submit" id="searchsubmit" value="Search">
+				</div>
+			</form></aside><aside id="rss_links-3" class="widget widget_rss_links"><p><a target="_self" href="https://www.juliabloggers.com/feed/" title="Subscribe to posts"><img src="./Julia CVS Speed (Artikel)_files/orange-large.png" alt="RSS feed"></a></p>
+</aside>
+		<aside id="recent-posts-6" class="widget widget_recent_entries">
+		<h3 class="widget-title">Recent Posts</h3>
+		<ul>
+											<li>
+					<a href="https://www.juliabloggers.com/julia-1-11-highlights/">Julia 1.11 Highlights</a>
+									</li>
+											<li>
+					<a href="https://www.juliabloggers.com/metal-jl-1-4-improved-random-numbers/">Metal.jl 1.4: Improved random numbers</a>
+									</li>
+											<li>
+					<a href="https://www.juliabloggers.com/this-month-in-julia-world/">This Month in Julia World</a>
+									</li>
+											<li>
+					<a href="https://www.juliabloggers.com/in-place-modifications/">In-Place Modifications</a>
+									</li>
+											<li>
+					<a href="https://www.juliabloggers.com/everything-you-need-to-know-about-the-gemini-api-as-a-developer-in-less-than-5-minutes/">Everything you need to know about the Gemini API as a developer in less than 5 minutes</a>
+									</li>
+											<li>
+					<a href="https://www.juliabloggers.com/alpha-capture-and-acquired/">Alpha Capture and Acquired</a>
+									</li>
+											<li>
+					<a href="https://www.juliabloggers.com/juliacon-global-2025-and-juliacon-2024-wrap-up/">JuliaCon Global 2025 and JuliaCon 2024 Wrap-Up</a>
+									</li>
+											<li>
+					<a href="https://www.juliabloggers.com/cuda-jl-5-5-maintenance-release/">CUDA.jl 5.5: Maintenance release</a>
+									</li>
+											<li>
+					<a href="https://www.juliabloggers.com/first-successes-of-the-sciml-small-grants-program-faster-ordinarydiffeq-startup-and-new-benchmarks/">First Successes of the SciML Small Grants Program: Faster OrdinaryDiffEq Startup and New Benchmarks</a>
+									</li>
+											<li>
+					<a href="https://www.juliabloggers.com/is-basketball-a-random-walk/">Is Basketball a Random Walk?</a>
+									</li>
+					</ul>
+
+		</aside><aside id="facebook-likebox-2" class="widget widget_facebook_likebox">		<div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; width: 0px; height: 0px;"><div></div></div></div>
+		<div class="fb-page fb_iframe_widget" data-href="https://www.facebook.com/juliabloggerscom" data-width="340" data-height="432" data-hide-cover="false" data-show-facepile="true" data-tabs="false" data-hide-cta="false" data-small-header="false" fb-xfbml-state="rendered" fb-iframe-plugin-query="app_id=249643311490&amp;container_width=0&amp;height=432&amp;hide_cover=false&amp;hide_cta=false&amp;href=https%3A%2F%2Fwww.facebook.com%2Fjuliabloggerscom&amp;locale=en_US&amp;sdk=joey&amp;show_facepile=true&amp;small_header=false&amp;tabs=false&amp;width=340"><span style="vertical-align: bottom; width: 340px; height: 130px;"><iframe name="f88c0a466a9740fa3" width="340px" height="432px" data-testid="fb:page Facebook Social Plugin" title="fb:page Facebook Social Plugin" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" allow="encrypted-media" src="./Julia CVS Speed (Artikel)_files/page.html" style="border: none; visibility: visible; width: 340px; height: 130px;" class=""></iframe></span></div>
+		</aside>		</div><!-- #secondary -->
+		</div><!-- #main .wrapper -->
+	<footer id="colophon" role="contentinfo">
+		<div class="site-info">
+									<a href="https://wordpress.org/" class="imprint" title="Semantic Personal Publishing Platform">
+				Proudly powered by WordPress			</a>
+		</div><!-- .site-info -->
+	</footer><!-- #colophon -->
+</div><!-- #page -->
+
+<div style="clear:both;width:100%;text-align:center; font-size:11px; "><a target="_blank" title="WP Twitter Auto Publish" href="https://xyzscripts.com/wordpress-plugins/twitter-auto-publish/compare">WP Twitter Auto Publish</a> Powered By : <a target="_blank" title="PHP Scripts &amp; Programs" href="http://www.xyzscripts.com/">XYZScripts.com</a></div><script type="text/javascript" id="jetpack-facebook-embed-js-extra">
+/* <![CDATA[ */
+var jpfbembed = {"appid":"249643311490","locale":"en_US"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Julia CVS Speed (Artikel)_files/facebook-embed.min.js.Download" id="jetpack-facebook-embed-js"></script><div id="fb-root"></div>
+<script type="text/javascript" src="./Julia CVS Speed (Artikel)_files/e-202442.js.Download" id="jetpack-stats-js" data-wp-strategy="defer" style="display: none !important;"></script>
+<script type="text/javascript" id="jetpack-stats-js-after">
+/* <![CDATA[ */
+_stq = window._stq || [];
+_stq.push([ "view", JSON.parse("{\"v\":\"ext\",\"blog\":\"168333090\",\"post\":\"8656\",\"tz\":\"-5\",\"srv\":\"www.juliabloggers.com\",\"j\":\"1:13.9.1\"}") ]);
+_stq.push([ "clickTrackerInit", "168333090", "8656" ]);
+/* ]]> */
+</script>
+
+
+</body><iframe id="google_esf" name="google_esf" src="./Julia CVS Speed (Artikel)_files/zrt_lookup_fy2021.html" style="display: none;"></iframe></html>

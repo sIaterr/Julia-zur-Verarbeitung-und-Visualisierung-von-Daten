@@ -1,0 +1,25 @@
+Wahl der Programmierungsumgebung
+-> spezielle Julia Erweiterung
+-> Syntaxhervohebung, Auto-Vervollständigung, integrierter Julia Read-eval-print loop (REPL) bietet
+   interaktive Programmierung, Debugger
+-> am wichtigsten: Plot-Unterstützung macht Programmieren magnituden schneller (anpassungen etc.) 
+	
+Wahl der Bibliothek
+-> zwischen Plots und Makie
+-> beide besitzten die benötigten Funktionen (Plotting und Animieren)
+-> Plots ist jedoch weitaus mehr beginnerfreundlich und flexibler
+-> Plots startet auch schneller (nicht höchste priorität)
+
+-> Bibliotheken werden nur für Darstellung genutzt
+-> Makie hat sehr erweiterte Funktionen, die das Programm auf einige Zeilen kürzen könnten
+   -> nicht das Ziel des Programms (evtl. Verweis auf vorher)
+-> da diese Funktionen also eh nicht genutzt werden überwiegt die Benutzerfreundlichkeit von Plots
+https://discourse.julialang.org/t/comparison-of-plotting-packages/99860
+
+
+multi-paradigmatische Sprache
+-> Funktionen: Prozeduale Programmierung
+-> Zustandsänderungen wie beim Mittelpunkt berechnen: Imperative Programmierung
+-> Struktur des Codes: Objektorientier (jedoch nicht expliziert)
+-> auf mutiple-dispatch wird verzichtet für übersichtlichkeit, jedoch durchaus möglich in umsetzung
+(https://en.wikipedia.org/wiki/Comparison_of_multi-paradigm_programming_languages)
